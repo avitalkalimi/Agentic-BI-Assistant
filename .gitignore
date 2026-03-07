@@ -1,6 +1,7 @@
 .env
 generate_mock_data.py
 test_connection.py
+
 __pycache__/
 *.pyc
 .streamlit/
