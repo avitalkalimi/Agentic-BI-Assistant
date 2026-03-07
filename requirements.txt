@@ -3,7 +3,7 @@ sqlalchemy>=2.0.0
 psycopg2-binary>=2.9.0
 pandas>=2.0.0
 python-dotenv>=1.0.0
-streamlit
+
 langchain
 langchain-groq
 langchain-community
@@ -11,3 +11,5 @@ psycopg2-binary
 python-dotenv
 plotly
 pandas
+streamlit==1.39.0
+altair==5.5.0
