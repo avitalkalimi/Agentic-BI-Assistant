@@ -30,7 +30,6 @@ db = SQLDatabase.from_uri(
 # 3. Initialize the language model (Groq with Llama 3 70B)
 llm = ChatGroq(
     temperature=0,
-    #model_name="llama-3.3-70b-versatile", 
     model_name="llama-3.1-8b-instant",
     api_key=groq_api_key
 )
@@ -45,7 +44,7 @@ agent_executor = create_sql_agent(
     llm=llm,
     toolkit=toolkit,
     verbose=True,
-    agent_type="openai-tools", # <--- Changed this from tool-calling
+    agent_type="openai-tools", 
     max_iterations=15,
     handle_parsing_errors=True
 )

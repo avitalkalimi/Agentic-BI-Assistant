@@ -1,15 +1,12 @@
 faker>=22.0.0
 sqlalchemy>=2.0.0
 psycopg2-binary>=2.9.0
-pandas>=2.0.0
+pandas>=2.0.0,<3.0
 python-dotenv>=1.0.0
 
-langchain
-langchain-groq
-langchain-community
-psycopg2-binary
-python-dotenv
-plotly
-pandas
+langchain==1.2.10
+langchain-groq==1.1.2
+langchain-community==0.4.1
+plotly==6.6.0
 streamlit==1.39.0
 altair==5.5.0
