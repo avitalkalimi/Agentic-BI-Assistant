@@ -1,4 +1,4 @@
-# 📊 Data AI Assistant
+# 📊 Agentic BI
 
 > Chat with your database using plain English — powered by LangChain, Groq & Streamlit
 
