@@ -7,7 +7,6 @@
 ![LangChain](https://img.shields.io/badge/LangChain-SQL%20Agent-1C3C3C?logo=langchain&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-Qwen3--32B-F55036?logoColor=white)
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
@@ -132,44 +131,11 @@ python generate_mock_data.py
 
 This creates all 6 tables in your Supabase database and fills them with realistic mock business data (150 customers, 45 products, 400 orders, etc.).
 
-> ⚠️ **Note:** The seed script **drops and recreates all tables** on each run. Use the full `postgres` user (not a read-only user) in your `.env` when seeding.
-
 ### 6. Run the app
 
 ```bash
 streamlit run app.py
 ```
-
-Open your browser at **http://localhost:8501**
-
----
-
-## ⚙️ Environment Variables
-
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `DATABASE_URL` | ✅ | Supabase PostgreSQL connection string (Settings → Database → URI) |
-| `GROQ_API_KEY` | ✅ | API key from [console.groq.com](https://console.groq.com) → API Keys |
-
----
-
-## 🌐 Deploying to the Cloud
-
-Because the app uses Supabase (a cloud PostgreSQL database), you can deploy it for real users:
-
-### Streamlit Cloud (recommended — free)
-
-1. Push your code to GitHub (make sure `.env` is in `.gitignore`)
-2. Go to [share.streamlit.io](https://share.streamlit.io) → New app
-3. Select your repo and set `app.py` as the entry point
-4. Under **Advanced settings → Secrets**, add:
-   ```toml
-   DATABASE_URL = "postgresql://..."
-   GROQ_API_KEY = "gsk_..."
-   ```
-5. Click **Deploy** — your app is live at a public URL
-
-> Streamlit Cloud reads secrets the same way Python reads `.env`, so no code changes needed.
 
 ---
 
@@ -193,41 +159,6 @@ Because the app uses Supabase (a cloud PostgreSQL database), you can deploy it f
 "Show the top 5 best-selling products by quantity sold."
 ```
 
----
-
-## 🔒 Security
-
-- ✅ **Read-only database user** — `ai_read_only` role with SELECT-only grants; `INSERT`, `UPDATE`, `DELETE`, and `DROP` are impossible at the database level
-- ✅ **Row Level Security (RLS)** — Supabase RLS enabled on all 6 tables with explicit SELECT policies
-- ✅ **Prompt injection protection** — regex guard scans every user message before it reaches the LLM; blocks "ignore previous instructions", `curl`, `os.system`, and similar patterns instantly
-- ✅ **AST sandbox on `exec()`** — every LLM-generated Python code block is parsed with Python's `ast` module before execution; `import os`, `subprocess`, `eval`, `__import__` and other dangerous calls are blocked
-- ✅ **Sanitized error messages** — full errors are logged server-side only; users see only safe generic messages
-- ✅ **No verbose logging** — SQL queries and agent internals are never logged to production
-- ✅ **No credential leaking** — API keys and connection strings are stored in `.env` / Streamlit secrets and never appear in responses or logs
-
----
-
-## ⚠️ Groq Free Tier Limits
-
-The free tier allows **6,000 tokens/min** and **100,000 tokens/day**. If you hit the limit:
-
-**Option A** — Switch to a smaller model in `agent.py`:
-```python
-model_name="llama-3.1-8b-instant"  # ~4x fewer tokens per request
-```
-
-**Option B** — Upgrade at [console.groq.com/settings/billing](https://console.groq.com/settings/billing)
-
----
-
-## 🐛 Known Issues
-
-| Issue | Cause | Fix |
-|-------|-------|-----|
-| `px.DataFrame` error | LLM confuses `px` (Plotly) with `pd` (Pandas) | Auto-corrected with `code.replace()` before `exec` |
-| Charts lost on page refresh | Streamlit re-renders wipe widget state | Charts stored in `st.session_state` and re-executed on replay |
-| Rate limit error (429) | Groq free tier: 6,000 tokens/min | Wait 30 seconds and retry |
-| Seed script fails | Read-only DB user used for seeding | Use the full `postgres` user in `.env` when running `generate_mock_data.py` |
 
 ---
 
@@ -246,13 +177,3 @@ plotly==6.6.0
 streamlit==1.39.0
 altair==5.5.0
 ```
-
----
-
-## 📄 License
-
-MIT License — free to use, modify, and distribute.
-
----
-
-*Built with LangChain + Groq (Qwen3-32B) + Supabase + Streamlit*
