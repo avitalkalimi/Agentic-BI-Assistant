@@ -60,8 +60,6 @@ Assistant: The total revenue is $1,114,594.01.
 Agentic BI/
 ├── app.py                  # Streamlit UI — chat interface, chart rendering, session history
 ├── agent.py                # LangChain SQL agent — LLM, toolkit, executor
-├── generate_mock_data.py   # Seeds Supabase with realistic mock business data
-├── test_connection.py      # Quick sanity-check for DB + agent connectivity
 ├── data/
 │   ├── customers.csv       # Exported after seeding (for reference)
 │   ├── products.csv
@@ -69,7 +67,6 @@ Agentic BI/
 │   ├── order_items.csv
 │   ├── categories.csv
 │   └── employees.csv
-├── .env                    # Environment variables (never committed)
 ├── .env.example.           # Template for required environment variables
 ├── .gitignore
 ├── requirements.txt
