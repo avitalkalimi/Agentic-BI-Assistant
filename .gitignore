@@ -7,3 +7,10 @@ __pycache__/
 .streamlit/
 
 *.db
+
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Claude dev tool config
+.claude/
